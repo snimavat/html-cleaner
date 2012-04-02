@@ -19,6 +19,7 @@ class HtmlCleanerGrailsPlugin {
     def description = "whitelist based html cleaner based on jsoup"
     def documentation = "http://snimavat.github.com/html-cleaner/guide/index.html"
 	def license = 'APACHE'
+	def issueManagement = [system: 'GitHub', url: 'https://github.com/snimavat/html-cleaner/issues']
 	def scm = [system: 'GitHub', url: 'https://github.com/snimavat/html-cleaner']
 	
 	def observe = ['controllers']
