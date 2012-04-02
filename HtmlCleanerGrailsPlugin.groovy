@@ -21,9 +21,9 @@ class HtmlCleanerGrailsPlugin {
     // TODO Fill in these fields
     def author = "Sudhir Nimavat"
     def authorEmail = "sudhir_nimavat@yahoo.com"
-    def title = "whitelist based html cleaner"
+    def title = "html cleaner"
     def description = '''\\
-		Documentation http://snimavat.github.com/html-cleaner/guide/index.html
+		whitelist based html cleaner
 	'''
 
     // URL to the plugin's documentation
