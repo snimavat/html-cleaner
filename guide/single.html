@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        <title>Html Cleaner Docs Plugin 0.1</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+        <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    <script type="text/javascript">
+function addJsClass(el) {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+    </head>
+
+    <body class="body" onload="addJsClass();">
+        <div id="navigation">
+            <ul>
+                <li>
+                    <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                        <a href="../guide/index.html" class="button">Table of contents</a>
+                        <div id="nav-summary-childs" style="display:none;">
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#usage"><strong>2</strong><span>Usage</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#definewhitelists"><strong>3</strong><span>Defining custom whitelists</span></a></div>
+                            
+                        </div>
+                    </div>
+                </li>
+                <li class="separator selected">
+                    <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+                </li>
+            </ul>
+        </div>
+        <div id="header">
+            <div class="images clearfix">
+                
+                
+            </div>
+            <p>Brief summary/description of the plugin.
+</p>
+        </div>
+
+
+        <table id="colset" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td id="col1">
+                    <div id="main" class="corner-all">
+
+                        <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                        <div class="project">
+                            <h1>Html Cleaner Docs Plugin - Reference Documentation</h1>
+                            <p><strong>Authors:</strong> Sudhir Nimavat</p>
+                            <p><strong>Version:</strong> 0.1</p>
+                            
+                        </div>
+
+                        
+                        <div id="table-of-content">
+                            <h2>Table of Contents</h2>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#changelog"><strong>1.1</strong><span>Change Log</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#usage"><strong>2</strong><span>Usage</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#definewhitelists"><strong>3</strong><span>Defining custom whitelists</span></a></div>
+                            
+                            <div style="clear:both" ></div>
+                        </div>
+                        
+                        
+
+<h1 id="introduction">1 Introduction</h1>
+The  <em class="italic">html-cleaner plugin</em>  is a whitelist based html sanitizer, based on <a href="http://jsoup.org/cookbook/cleaning-html/whitelist-sanitizer" target="blank">jsoup</a>.
+Plugin provides a DSL to define whitelists and adds a method <strong class="bold">cleanHtml()</strong> to every controllers.
+ 
+
+
+<h2 id="changelog">1.1 Change Log</h2>
+
+<h4>Version 0.1</h4>
+<ul class="star">
+<li>Initial release - for grails version 1.3.7 and greater.</li>
+</ul><p class="paragraph"/>
+
+
+<h1 id="usage">2 Usage</h1>
+The plugin adds <strong class="bold">cleanHtml(String unsafe, String whitelist)</strong> method to every controller. The method can be used to clean and sanitize
+user entered unsafe html against given whitelist. See <a href="http://jsoup.org/apidocs/org/jsoup/safety/Whitelist.html" target="blank">Whitelist</a> to know more about whitelist.<p class="paragraph"/><h3>cleanHtml()</h3>
+Let's say you have a form with a text area, but you don't want to allow any html. You can clean the user supplied text with whitelist  <em class="italic">none</em>  and it will stripe out all the html.<p class="paragraph"/><div class="code"><pre>class FooController &#123;<p class="paragraph"/>    def save = &#123;<p class="paragraph"/>       <span class="java&#45;object">String</span> cleaned = cleanHtml(params.textArea, 'none') 
+   &#125;<p class="paragraph"/>  &#125;</pre></div><p class="paragraph"/>allow basic html as per <a href="http://jsoup.org/apidocs/org/jsoup/safety/Whitelist.html#basic()" target="blank">basic</a> whitelist.<p class="paragraph"/><div class="code"><pre>def cleaned = cleanHtml(unsafe, 'basic')</pre></div><p class="paragraph"/>Following whitelists are available by default and does not need any configuration.
+<ul class="star">
+<li>none</li>
+<li>simpleText</li>
+<li>basic</li>
+<li>basicWithImages</li>
+<li>relaxed</li>
+</ul><p class="paragraph"/><h3>htmlCleaner bean</h3>
+Plugin makes a spring bean with name  <em class="italic">htmlCleaner</em>  available. htmlCleaner provides a method  <em class="italic">cleanHtml()</em>  with same signature as the dynamic method available in controllers.<p class="paragraph"/>Using htmlCleaner inside a service<p class="paragraph"/><div class="code"><pre>class FooService &#123;<p class="paragraph"/>        def htmlCleaner<p class="paragraph"/>        def foo() &#123;
+            <span class="java&#45;object">String</span> cleaned = htmlCleaner.cleanHtml(unsafe, 'none')
+        &#125;
+    &#125;</pre></div><p class="paragraph"/><h3>&#60;hc:cleanHtml /&#62; tag</h3><p class="paragraph"/>Example<p class="paragraph"/><div class="code"><pre>&#60;hc:cleanHtml unsafe=<span class="java&#45;quote">"$&#123;domainInstance.description&#125;"</span> whitelist=<span class="java&#45;quote">"basic"</span>/&#62;</pre></div>
+
+
+<h1 id="definewhitelists">3 Defining custom whitelists</h1>
+Plugin provides a DSL to define custom whitelists in configuration.<p class="paragraph"/>Define a custom whitelist  <em class="italic">sample</em>  that will allow just &#60;b&#62;,&#60;i&#62;,&#60;p&#62; and &#60;span&#62; tags.<p class="paragraph"/>Config.groovy
+<div class="code"><pre>htmlcleaner &#123;
+    whitelists = &#123;
+        whitelist(<span class="java&#45;quote">"sample"</span>) &#123;
+            startwith <span class="java&#45;quote">"none"</span>
+            allow <span class="java&#45;quote">"b"</span>, <span class="java&#45;quote">"p"</span>, <span class="java&#45;quote">"i"</span>, <span class="java&#45;quote">"span"</span>
+        &#125;
+    &#125;
+&#125;</pre></div><p class="paragraph"/>The above configuration would define a whitelist with name  <em class="italic">sample</em>  that builds on top of whitelist  <em class="italic">none</em>  and allows additional tags &#60;b&#62;,&#60;i&#62;,&#60;p&#62; and &#60;span&#62;<p class="paragraph"/>A whitelist can start with any of the default whitelists or A whitelist can start with any custom whitelists that are defined earlier in configuration as well, but it must start with another whitelist.<p class="paragraph"/>Define a whitelist  <em class="italic">sample2</em>  that starts with whitelist  <em class="italic">sample</em>  we defined above and allows tag &#60;a&#62; with just one attribute  <em class="italic">href</em>  and puts  <em class="italic">rel="nofollow"</em> <p class="paragraph"/><div class="code"><pre>htmlcleaner &#123;
+    whitelists = &#123;
+        whitelist(<span class="java&#45;quote">"sample2"</span>) &#123;
+            startwith <span class="java&#45;quote">"sample"</span>
+            allow(<span class="java&#45;quote">"a"</span>) &#123;
+                attributes <span class="java&#45;quote">"href"</span>
+                enforce attribute:<span class="java&#45;quote">"rel"</span>, value:<span class="java&#45;quote">"nofollow"</span>
+            &#125;
+        &#125;
+    &#125;
+&#125;</pre></div><p class="paragraph"/>Define a whitelist basic-with-tables that starts with whitelist <a href="http://jsoup.org/apidocs/org/jsoup/safety/Whitelist.html#basic()" target="blank">basic</a> and allows tables.<p class="paragraph"/><div class="code"><pre>htmlcleaner &#123;
+    whitelists = &#123;
+        whitelist(<span class="java&#45;quote">"basic&#45;with&#45;tables"</span>) &#123;
+            startwith <span class="java&#45;quote">"basic"</span>
+            allow <span class="java&#45;quote">"table"</span>, <span class="java&#45;quote">"tr"</span>, <span class="java&#45;quote">"td"</span>
+        &#125;
+    &#125;
+&#125;</pre></div><p class="paragraph"/>Restricting attributes
+<div class="code"><pre>htmlcleaner &#123;
+    whitelists = &#123;
+        whitelist(<span class="java&#45;quote">"sample"</span>) &#123;
+            allow(<span class="java&#45;quote">"div"</span>) &#123;
+                attributes <span class="java&#45;quote">"id"</span>, <span class="java&#45;quote">"class"</span>
+            &#125;
+        &#125;
+    &#125;
+&#125;</pre></div><p class="paragraph"/>Enforcing attributes - An enforced attribute will always be added to the element. If the element already has the attribute set, it will be overridden.
+<div class="code"><pre>htmlcleaner &#123;
+    whitelists = &#123;
+        whitelist(<span class="java&#45;quote">"sample"</span>) &#123;
+            allow(<span class="java&#45;quote">"div"</span>) &#123;
+                enforce attribute:<span class="java&#45;quote">"class"</span>, value:<span class="java&#45;quote">"block"</span>
+            &#125;
+        &#125;
+    &#125;
+&#125;</pre></div><p class="paragraph"/>Defining multiple whitelists<p class="paragraph"/><div class="code"><pre>htmlcleaner &#123;
+    whitelists = &#123;
+        whitelist(<span class="java&#45;quote">"sample"</span>) &#123;
+            startwith <span class="java&#45;quote">"none"</span>
+            allow <span class="java&#45;quote">"b"</span>, <span class="java&#45;quote">"p"</span>, <span class="java&#45;quote">"span"</span>
+        &#125;<p class="paragraph"/>        whitelist(<span class="java&#45;quote">"sample&#45;with&#45;anchor"</span>) &#123;
+            startwith <span class="java&#45;quote">"sample"</span>
+            allow(<span class="java&#45;quote">"a"</span>) &#123;
+                attributes <span class="java&#45;quote">"href"</span>
+                enforce attribute:<span class="java&#45;quote">"rel"</span>, value:<span class="java&#45;quote">"nofollow"</span>
+            &#125;            
+        &#125;<p class="paragraph"/>        whitelist(<span class="java&#45;quote">"basic&#45;with&#45;tables"</span>) &#123;
+            startwith <span class="java&#45;quote">"basic"</span>
+            allow <span class="java&#45;quote">"table"</span>, <span class="java&#45;quote">"tr"</span>, <span class="java&#45;quote">"td"</span>
+        &#125;<p class="paragraph"/>    &#125;
+&#125;</pre></div>
+
+                    </div>
+                </td>
+                <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Tags</h1><div class="menu-sub">
+                        
+                        
+                        <div class="menu-item"><a href="../ref/Tags/cleanHtml.html">cleanHtml</a>
+                        </div>
+                        
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+            </tr>
+        </table>
+
+        <div id="footer">
+            
+            
+        </div>
+
+
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+    </body>
+</html>
