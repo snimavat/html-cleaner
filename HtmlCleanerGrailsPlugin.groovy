@@ -7,28 +7,19 @@ import grails.plugin.htmlcleaner.WhitelistBuilder
 
 
 class HtmlCleanerGrailsPlugin {
-    // the plugin version
     def version = "0.1"
-    // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
-    // the other plugins this plugin depends on
     def dependsOn = [:]
-    // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/views/error.gsp"
     ]
-
-    // TODO Fill in these fields
     def author = "Sudhir Nimavat"
     def authorEmail = "sudhir_nimavat@yahoo.com"
-    def title = "html cleaner"
-    def description = '''\\
-		whitelist based html cleaner
-	'''
-
-    // URL to the plugin's documentation
+    def title = "Html Cleaner"
+    def description = "whitelist based html cleaner based on jsoup"
     def documentation = "http://snimavat.github.com/html-cleaner/guide/index.html"
-
+	def license = 'APACHE'
+	def scm = [system: 'GitHub', url: 'https://github.com/snimavat/html-cleaner']
 	
 	def observe = ['controllers']
 	
