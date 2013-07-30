@@ -1,25 +1,24 @@
 package grails.plugin.htmlcleaner
 
-import org.jsoup.safety.Whitelist;
-
+import org.jsoup.safety.Whitelist
 
 class WhitelistBuilder {
 
-	private static final List RESERVED_WHITELISTS = ['none', 'simpleText', 'basic', 'basicWithImages', 'relaxed']	
+	private static final List RESERVED_WHITELISTS = ['none', 'simpleText', 'basic', 'basicWithImages', 'relaxed']
 	private final Map whiteLists = [:]
-	
+
 	private Whitelist currentWhitelist
 	private String currentTag
-	
+
 	Map<String, Whitelist> build(Closure c) {
-		if(c) {			
+		if(c) {
 			c.delegate = this
 			c.resolveStrategy = Closure.DELEGATE_ONLY
 			c.call()
 		}
 		return whiteLists
 	}
-	
+
 	def whitelist(String name, Closure c) {
 		if(!name) {
 			throw new RuntimeException("Whitelist must have a name")
@@ -27,14 +26,14 @@ class WhitelistBuilder {
 		if(RESERVED_WHITELISTS.contains(name)) {
 			throw new RuntimeException("Whitelist name [${name}] is reserved")
 		}
-		if(c) {			
+		if(c) {
 			c.delegate = this
 			c.resolveStrategy = Closure.DELEGATE_ONLY
 			c.call()
 			whiteLists[name] = currentWhitelist
 		}
 	}
-	
+
 	def startwith(String name) {
 		currentWhitelist = null
 		switch (name) {
@@ -58,18 +57,15 @@ class WhitelistBuilder {
 		}
 		if(!currentWhitelist) {
 			throw new RuntimeException("Whitelist [${name}] is not defined")
-		}		
-	}
-	
-	def allow(String[] tags) {
-		if(tags) {
-			tags.each { 
-				currentWhitelist.addTags(it)	
-			}
-
 		}
 	}
-	
+
+	def allow(String[] tags) {
+		tags.each {
+			currentWhitelist.addTags(it)
+		}
+	}
+
 	def allow(String name, Closure c) {
 		if(name) {
 			currentWhitelist.addTags(name)
@@ -81,15 +77,13 @@ class WhitelistBuilder {
 			c.call()
 		}
 	}
-	
+
 	def attributes(String[] attrs) {
-		if(attrs) {
-			attrs.each {  
-				currentWhitelist.addAttributes(currentTag, it)
-			}
+		attrs.each {
+			currentWhitelist.addAttributes(currentTag, it)
 		}
 	}
-	
+
 	def enforce(Map attr) {
 		if(attr) {
 			currentWhitelist.addEnforcedAttribute(currentTag, attr.attribute, attr.value)

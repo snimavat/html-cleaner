@@ -1,9 +1,10 @@
 package grails.plugin.htmlcleaner
 
 import grails.test.GrailsUnitTestCase
-import groovy.lang.MetaClass;
 
 class WhitelistBuilderTests extends GrailsUnitTestCase {
+
+	private WhitelistBuilder builder = new WhitelistBuilder()
 
 	def confSuccess = {
 		whitelist("sample") {
@@ -44,13 +45,6 @@ class WhitelistBuilderTests extends GrailsUnitTestCase {
 		}
 	}
 
-	
-	WhitelistBuilder builder
-
-	void setUp() {
-		builder = new WhitelistBuilder()
-	}
-
 	void testWhitelistBuildSuccess() {
 		def whiteLists = builder.build(confSuccess)
 		assertNotNull(whiteLists)
@@ -67,7 +61,7 @@ class WhitelistBuilderTests extends GrailsUnitTestCase {
 			assertEquals("Whitelist [undefined] is not defined", ex.message)
 		}
 	}
-	
+
 	void testWhitelistWithReservedNamesShouldFails() {
 		try {
 			def whiteLists = builder.build(confWhitelistWithResorvedName)
@@ -75,6 +69,5 @@ class WhitelistBuilderTests extends GrailsUnitTestCase {
 		}catch(RuntimeException ex) {
 			assertEquals("Whitelist name [none] is reserved", ex.message)
 		}
-
 	}
 }

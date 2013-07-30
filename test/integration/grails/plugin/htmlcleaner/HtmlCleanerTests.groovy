@@ -1,9 +1,7 @@
 package grails.plugin.htmlcleaner
 
-import org.jsoup.Jsoup;
+import org.jsoup.Jsoup
 import org.jsoup.safety.Whitelist
-
-import groovy.util.GroovyTestCase
 
 class HtmlCleanerTests extends GroovyTestCase {
 
@@ -14,26 +12,25 @@ class HtmlCleanerTests extends GroovyTestCase {
            <i>A tag that will be removed</i>
         </p>
 	'''
-	
-	HtmlCleaner htmlCleaner 
-	
-	Whitelist whitelist
-		
-	void setUp() {		
+
+	HtmlCleaner htmlCleaner
+
+	private Whitelist whitelist = Whitelist.none()
+
+	protected void setUp() {
 		//setup a whitelist same as the 'sample' whitelist defined in config
-		whitelist = Whitelist.none()
 		whitelist.addTags('b','p','img','span','a')
 		whitelist.addAttributes('a', 'href')
 		whitelist.addEnforcedAttribute('a', 'rel', 'nofollow')
 	}
-	
+
 	void testCleanHtml() {
 		def result = htmlCleaner.cleanHtml(UNSAFE_WITH_TABLE_TAG, "sample")
 		assertEquals(Jsoup.clean(UNSAFE_WITH_TABLE_TAG, whitelist), result)
 	}
-	
+
 	void testCleanHtmlWithDefaultWhiteList() {
 		def result = htmlCleaner.cleanHtml(UNSAFE_WITH_TABLE_TAG)
 		assertEquals(Jsoup.clean(UNSAFE_WITH_TABLE_TAG, Whitelist.simpleText()), result)
-	}	
+	}
 }
