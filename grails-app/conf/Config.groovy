@@ -1,7 +1,9 @@
 // configuration for plugin testing - will not be included in the plugin zip
- 
 
 htmlcleaner  {
+	
+	defaultWhiteList = "simpleText"
+	
 	whitelists = {
 		whitelist("sample") {
 			startwith "none"
@@ -14,8 +16,6 @@ htmlcleaner  {
 		}
 	}
 }
-
-
 
 log4j = {
     // Example of changing the log pattern for the default console

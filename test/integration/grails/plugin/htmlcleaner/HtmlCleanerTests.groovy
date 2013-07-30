@@ -30,5 +30,10 @@ class HtmlCleanerTests extends GroovyTestCase {
 	void testCleanHtml() {
 		def result = htmlCleaner.cleanHtml(UNSAFE_WITH_TABLE_TAG, "sample")
 		assertEquals(Jsoup.clean(UNSAFE_WITH_TABLE_TAG, whitelist), result)
+	}
+	
+	void testCleanHtmlWithDefaultWhiteList() {
+		def result = htmlCleaner.cleanHtml(UNSAFE_WITH_TABLE_TAG)
+		assertEquals(Jsoup.clean(UNSAFE_WITH_TABLE_TAG, Whitelist.simpleText()), result)
 	}	
 }

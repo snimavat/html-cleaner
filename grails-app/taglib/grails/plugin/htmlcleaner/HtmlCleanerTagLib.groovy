@@ -6,12 +6,15 @@ class HtmlCleanerTagLib {
 	HtmlCleaner htmlCleaner
 	
 	/**
+	 * Cleans HTML and removes html tags based on whitelist 
+	 * 
 	 * @attr unsafe - the html string to clean
-	 * @attr whitelist - Name of whitelist that should be used to clean the html.
+	 * @attr whitelist - Name of whitelist that should be used to clean the html. If not specified default whitelist will be used.
 	 */
 	def cleanHtml = {attrs, body ->
-		if (!attrs.whitelist) throwTagError("Tag [cleanHtml] is missing required attribute [whitelist]")
-		if(attrs.unsafe) {
+		if (!attrs.whitelist) { 		
+			out << htmlCleaner.cleanHtml(attrs.unsafe)
+		} else {
 			out << htmlCleaner.cleanHtml(attrs.unsafe, attrs.whitelist)
 		}
 	}
