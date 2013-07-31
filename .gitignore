@@ -4,3 +4,6 @@
 *.zip
 plugin.xml
 web-app
+/.settings
+/scripts
+/lib
