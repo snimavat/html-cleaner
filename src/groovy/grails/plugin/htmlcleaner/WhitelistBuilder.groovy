@@ -89,4 +89,16 @@ class WhitelistBuilder {
 			currentWhitelist.addEnforcedAttribute(currentTag, attr.attribute, attr.value)
 		}
 	}
+
+    def protocols(Map attr) {
+        if (!attr?.key || !attr.values) {
+            return
+        }
+
+        List values = attr.values instanceof String ? [ attr.values ] : attr.values
+
+        values.each { String protocol ->
+            currentWhitelist.addProtocols(currentTag, attr.key, protocol)
+        }
+    }
 }

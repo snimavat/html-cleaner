@@ -11,6 +11,7 @@ class HtmlCleanerGrailsPlugin {
 	def author = "Sudhir Nimavat"
 	def authorEmail = "sudhir_nimavat@yahoo.com"
 	def description = "whitelist based html cleaner based on jsoup"
+    def developers = [ [ name: "Igor Shults", email: "igor.shults@gmail.com" ] ]
 
 	def documentation = "http://snimavat.github.com/html-cleaner/guide/index.html"
 	def license = 'APACHE'
