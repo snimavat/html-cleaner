@@ -90,15 +90,15 @@ class WhitelistBuilder {
 		}
 	}
 
-    def protocols(Map attr) {
-        if (!attr?.key || !attr.values) {
+    def protocols(Map map) {
+        if (!map?.attribute || !map.value) {
             return
         }
 
-        List values = attr.values instanceof String ? [ attr.values ] : attr.values
+        List values = map.value instanceof String ? [ map.value ] : map.value
 
         values.each { String protocol ->
-            currentWhitelist.addProtocols(currentTag, attr.key, protocol)
+            currentWhitelist.addProtocols(currentTag, map.attribute, protocol)
         }
     }
 }
