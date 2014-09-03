@@ -9,6 +9,7 @@ htmlcleaner  {
 			allow "span"
 			allow("a") {
 				attributes "href"
+                protocols attribute: 'href', value: 'http'
 				enforce attribute:"rel", value:"nofollow"
 			}
 		}

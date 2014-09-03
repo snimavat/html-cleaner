@@ -21,6 +21,7 @@ class HtmlCleanerTests extends GroovyTestCase {
 		//setup a whitelist same as the 'sample' whitelist defined in config
 		whitelist.addTags('b','p','img','span','a')
 		whitelist.addAttributes('a', 'href')
+		whitelist.addProtocols('a', 'href', 'http')
 		whitelist.addEnforcedAttribute('a', 'rel', 'nofollow')
 	}
 
