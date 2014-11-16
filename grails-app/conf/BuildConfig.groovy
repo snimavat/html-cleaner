@@ -12,7 +12,7 @@ grails.project.dependency.resolution = {
 	}
 
 	dependencies {
-		compile 'org.jsoup:jsoup:1.7.2'
+		compile 'org.jsoup:jsoup:1.8.1'
 	}
 
 	plugins {
