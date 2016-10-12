@@ -7,8 +7,6 @@ rm -rf *.zip
 echo "### Running tests"
 
 ./grailsw test-app --non-interactive
-./grailsw package-plugin --non-interactive
-./grailsw maven-install --non-interactive
 
 if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_REPO_SLUG == "snimavat/html-cleaner" && $TRAVIS_PULL_REQUEST == 'false' ]]; then
 	echo "### publishing plugin to grails central"
