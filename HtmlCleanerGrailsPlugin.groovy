@@ -5,7 +5,7 @@ import org.jsoup.safety.Whitelist
 import org.springframework.util.Assert
 
 class HtmlCleanerGrailsPlugin {
-	def version = "0.4-SNAPSHOT"
+	def version = "0.4"
 	def grailsVersion = "1.3.7 > *"
 	def title = "Html Cleaner"
 	def author = "Sudhir Nimavat"

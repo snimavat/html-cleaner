@@ -12,7 +12,7 @@ echo "### Running tests"
 
 if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_REPO_SLUG == "snimavat/html-cleaner" && $TRAVIS_PULL_REQUEST == 'false' ]]; then
 	echo "### publishing plugin to grails central"
-	./grailsw publish-plugin --allow-overwrite --non-interactive
+	./grailsw publish-plugin --allow-overwrite --non-interactive --noScm
 
 else
   echo "Not on master branch, so not publishing"
