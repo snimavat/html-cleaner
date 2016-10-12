@@ -1,0 +1,18 @@
+language: groovy
+
+jdk:
+  - oraclejdk8
+
+
+sudo: false
+
+cache:
+  directories:
+  - $HOME/.grails
+  - $HOME/.m2
+
+
+before_script:
+ - rm -rf .grails
+
+script: "./travis-build.sh"
