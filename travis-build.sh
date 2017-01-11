@@ -1,16 +1,13 @@
 #!/bin/bash
 
-rm -rf *.zip
-
-./grailsw refresh-dependencies --non-interactive
+set -e
 
 echo "### Running tests"
-
-./grailsw test-app --non-interactive
+./gradlew clean check assemble --stacktrace
 
 if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_REPO_SLUG == "snimavat/html-cleaner" && $TRAVIS_PULL_REQUEST == 'false' ]]; then
 	echo "### publishing plugin to grails central"
-	./grailsw publish-plugin --allow-overwrite --non-interactive --noScm
+	./gradlew bintrayUpload || EXIT_STATUS=$?
 
 else
   echo "Not on master branch, so not publishing"
