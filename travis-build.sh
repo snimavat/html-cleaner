@@ -6,7 +6,7 @@ echo "### Running plugin tests ###"
 (cd ./html-cleaner-plugin && ./gradlew clean check assemble --stacktrace)
 
 echo "### Running demo app tests ###"
-(cd ./html-cleaner-test-app && ./gradlew clean check assemble --stacktrace)
+(cd ./html-cleaner-test-app && ./gradlew clean check --stacktrace)
 
 
 if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_REPO_SLUG == "snimavat/html-cleaner" && $TRAVIS_PULL_REQUEST == 'false' ]]; then
