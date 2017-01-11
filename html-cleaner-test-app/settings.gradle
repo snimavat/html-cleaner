@@ -1,0 +1,4 @@
+rootProject.name = "html-cleaner-test-app"
+
+include ':html-cleaner'
+project(':html-cleaner').projectDir = new File(settingsDir, '../html-cleaner-plugin')

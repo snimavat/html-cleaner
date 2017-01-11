@@ -13,7 +13,8 @@ before_cache:
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 before_script:
-- rm -rf ./build
+- rm -rf ./html-cleaner-plugin/build
+- rm -rf ./html-cleaner-test-app/build
 
 script: "./travis-build.sh"
 env:
